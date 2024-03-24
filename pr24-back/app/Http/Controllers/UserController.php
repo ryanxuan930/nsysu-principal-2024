@@ -3,17 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Student;
-use Illuminate\Support\Facades\Validator;
+use App\Models\User;
 
-class StudentController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Student::all();
+        return User::all();
     }
 
     /**
@@ -23,20 +22,15 @@ class StudentController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string',
-            'email' => 'required|email',
-            'student_id' => 'required|string',
-            'phone' => 'required|string',
-            'ip' => 'required|ip',
-            'check_in' => 'required|date',
-            'check_out' => 'required|date',
-            'area' => 'required|string|max:1',
-            'row' => 'required|integer',
-            'no' => 'required|integer',
+            'account' => 'required',
+            'password' => 'required|string',
         ]);
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()], 200);
         }
-        Student::create($data);
+        $data['password'] = bcrypt($data['password']);
+        $data['ip'] = $request->ip();
+        User::create($data);
         return response()->json(['message' => 'OK']);
     }
 
@@ -45,7 +39,7 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-        return Student::find($id);
+        return User::find($id);
     }
 
     /**
@@ -55,21 +49,12 @@ class StudentController extends Controller
     {
         $data = $request->validate([
             'name' => 'string',
-            'email' => 'email',
-            'student_id' => 'string',
-            'phone' => 'string',
-            'ip' => 'ip',
-            'check_in' => 'date',
-            'check_out' => 'date',
-            'area' => 'string|max:1',
-            'row' => 'integer',
-            'no' => 'integer',
+            'account' => 'string',
         ]);
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()], 200);
         }
-        $student = Student::find($id);
-        $student->update($data);
+        User::find($id)->update($data);
         return response()->json(['message' => 'OK']);
     }
 
@@ -78,7 +63,21 @@ class StudentController extends Controller
      */
     public function destroy(string $id)
     {
-        Student::destroy($id);
+        User::destroy($id);
+        return response()->json(['message' => 'OK']);
+    }
+
+    // Reset password
+    public function resetPassword(Request $request, string $id)
+    {
+        $data = $request->validate([
+            'password' => 'required|string',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()], 200);
+        }
+        $data['password'] = bcrypt($data['password']);
+        User::find($id)->update($data);
         return response()->json(['message' => 'OK']);
     }
 }
