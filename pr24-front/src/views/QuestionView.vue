@@ -10,6 +10,8 @@
 
   const vr = new VueRequest();
   const props = defineProps(['userData']);
+  const emit = defineEmits(['logout']);
+
   const form = ref({
     student_id: props.userData.student.student_id,
     identity: '學生',
@@ -53,6 +55,7 @@
     vr.Post('feedback', form.value).then((res) => {
       if (res.message === 'OK') {
         alert('問卷填寫成功，感謝您的參與，祝您有個美好的夜晚');
+        emit('logout');
       }
     });
   }
