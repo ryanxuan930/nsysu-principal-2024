@@ -38,6 +38,30 @@
     localStorage.removeItem('pr24student');
     userData.value = null;
   }
+
+  const signoutStatus = ref(false);
+  function getSignoutStatus() {
+    const now = new Date();
+    if (now.getFullYear() === 2024 && now.getMonth() === 2 && now.getDate() === 25 && now.getHours() >= 21 && now.getHours() <= 23) {
+      signoutStatus.value = true;
+    }
+  }
+  getSignoutStatus();
+
+  let invervalContext: any = null;
+  onMounted(() => {
+    invervalContext = setInterval(() => {
+      if (userData.value) {
+        vr.Get(`student/${userData.value.student_id}`, null, true, true).then((res) => {
+          userData.value.student = res;
+        });
+      }
+      getSignoutStatus();
+    }, 10000);
+  });
+  onBeforeUnmount(() => {
+    clearInterval(invervalContext);
+  });
 </script>
 
 <template>
