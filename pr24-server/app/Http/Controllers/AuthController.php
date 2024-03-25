@@ -19,7 +19,7 @@ class AuthController extends Controller
             'account' => 'required|string',
             'password' => 'required|string',
         ]);
-        $token = auth()->attempt($credentials);
+        $token = Auth::attempt($credentials);
         if(!$token)
         {
             return response()->json(['message' => '帳號或密碼錯誤'], 200);
