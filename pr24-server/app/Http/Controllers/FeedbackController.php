@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Feedback;
 use Illuminate\Http\Request;
+use App\Models\Student;
 
 class FeedbackController extends Controller
 {
@@ -41,10 +42,11 @@ class FeedbackController extends Controller
             'q5_comment' => 'required',
             'q6_comment' => 'required',
         ]);
-        if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()], 200);
+        if (!$data) {
+            return response()->json(['message' => 'Error'], 200);
         }
         Feedback::create($data);
+        Student::find($data['student_id'])->update(['check_out' => now()]);
         return response()->json(['message' => 'OK']);
     }
 
@@ -76,8 +78,8 @@ class FeedbackController extends Controller
             'q5_comment' => 'required',
             'q6_comment' => 'required',
         ]);
-        if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()], 200);
+        if (!$data) {
+            return response()->json(['message' => 'Error'], 200);
         }
         Feedback::find($id)->update($data);
         return response()->json(['message' => 'OK']);

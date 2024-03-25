@@ -39,8 +39,8 @@ class SeatController extends Controller
             'is_occupied' => 'boolean',
             'is_reserved' => 'boolean',
         ]);
-        if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()], 200);
+        if (!$data) {
+            return response()->json(['message' => 'Error'], 200);
         }
         Seat::create($data);
         return response()->json(['message' => 'OK']);
@@ -67,8 +67,8 @@ class SeatController extends Controller
             'is_occupied' => 'boolean',
             'is_reserved' => 'boolean',
         ]);
-        if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()], 200);
+        if (!$data) {
+            return response()->json(['message' => 'Error'], 200);
         }
         Seat::find($id)->update($data);
         return response()->json(['message' => 'OK']);

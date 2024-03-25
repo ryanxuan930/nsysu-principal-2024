@@ -98,6 +98,7 @@
         <QuestionView :userData="userData" v-if="signoutStatus" />
         <hr />
         <Button class="block button" @click="logout" label="登出" />
+        <div class="p-5"></div>
       </div>
     </div>
   </div>

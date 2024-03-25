@@ -35,8 +35,8 @@ class StudentController extends Controller
             'row' => 'required|integer',
             'no' => 'required|integer',
         ]);
-        if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()], 200);
+        if (!$data) {
+            return response()->json(['message' => 'Error'], 200);
         }
         Student::create($data);
         return response()->json(['message' => 'OK']);
@@ -67,8 +67,8 @@ class StudentController extends Controller
             'row' => 'integer',
             'no' => 'integer',
         ]);
-        if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()], 200);
+        if (!$data) {
+            return response()->json(['message' => 'Error'], 200);
         }
         $student = Student::find($id);
         $student->update($data);

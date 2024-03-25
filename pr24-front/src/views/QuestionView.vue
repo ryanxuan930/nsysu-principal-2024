@@ -6,11 +6,12 @@
   import Dropdown from 'primevue/dropdown';
   import Rating from 'primevue/rating';
   import Textarea from 'primevue/textarea';
-  import router from '@/router';
+  import Button from 'primevue/button';
 
   const vr = new VueRequest();
   const props = defineProps(['userData']);
   const form = ref({
+    student_id: props.userData.student.student_id,
     identity: '學生',
     college: '文學院',
     grade: '大學部',
@@ -146,5 +147,8 @@
   }
   .hr {
     @apply my-3;
+  }
+  .button {
+    @apply p-2 w-full mb-3 bg-black text-white rounded-md;
   }
 </style>
