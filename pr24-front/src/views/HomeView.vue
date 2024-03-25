@@ -52,8 +52,9 @@
   onMounted(() => {
     invervalContext = setInterval(() => {
       if (userData.value) {
-        vr.Get(`student/${userData.value.student_id}`, null, true, true).then((res) => {
+        vr.Get(`student/${userData.value.student.student_id}`, null, true, true).then((res) => {
           userData.value.student = res;
+          localStorage.setItem('pr24student', JSON.stringify(userData.value));
         });
       }
       getSignoutStatus();
@@ -87,7 +88,7 @@
         </div>
         <div class="text-2xl font-semibold text-center">
           您的座位：
-          <span v-if="userData.student.area == '0'">將於掃碼通關後顯示</span>
+          <span v-if="userData.student.area == '0'">掃碼通關後顯示</span>
           <span v-else>{{ userData.student.area }} 區 {{ userData.student.row }} 排 {{ userData.student.no }} 號</span>
         </div>
         <Button class="block button" @click="logout" label="登出" />
