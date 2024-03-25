@@ -74,6 +74,11 @@ class AuthController extends Controller
             $student->no = $seat->no;
             $seat->is_occupied = 1;
             $seat->save();
+        } else {
+            $seat = Seat::where('area', $student->area)
+                ->where('row', $student->row)
+                ->where('no', $student->no)
+                ->first();
         }
         $student->save();
         return response()->json(['message' => 'OK', 'seat' => $seat, 'user' => $student], 200);
