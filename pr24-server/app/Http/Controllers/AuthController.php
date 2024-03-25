@@ -15,50 +15,27 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $request->validate([
+        $credentials = $request->validate([
             'account' => 'required|string',
             'password' => 'required|string',
         ]);
-        $credentials = $request->only('account', 'password');
-
-        $token = Auth::attempt($credentials);
-        if (!$token) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Unauthorized',
-            ], 401);
+        $token = auth()->attempt($credentials);
+        if(!$token)
+        {
+            return response()->json(['message' => '帳號或密碼錯誤'], 200);
         }
 
-        $user = Auth::user();
-        return response()->json([
-                'status' => 'success',
-                'user' => $user,
-                'authorization' => [
-                    'token' => $token,
-                    'type' => 'bearer',
-                ]
-            ]);
-
+        $user = Admin::find(auth()->user()->user_id);
+        //force to update user model cache 
+        auth()->setUser($user);
+        // Return the token along with the user info
+        return response()->json(['message' => 'OK', 'user' => auth()->user(), 'token' => $token], 200);
     }
 
     public function logout()
     {
-        Auth::logout();
-        return response()->json([
-            'status' => 'success',
-        ]);
-    }
-
-    public function refresh()
-    {
-        return response()->json([
-            'status' => 'success',
-            'user' => Auth::user(),
-            'authorization' => [
-                'token' => Auth::refresh(),
-                'type' => 'bearer',
-            ]
-        ]);
+        auth()->logout();
+        return response()->json(['message' => 'OK'], 200);
     }
 
 }
