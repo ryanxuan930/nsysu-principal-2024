@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Contracts\Encryption\DecryptException;
 use App\Models\User;
 use App\Models\Student;
+use App\Models\Seat;
 
 class AuthController extends Controller
 {
