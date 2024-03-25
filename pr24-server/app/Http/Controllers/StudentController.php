@@ -24,7 +24,7 @@ class StudentController extends Controller
         $data = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
-            'student_id' => 'required|string',
+            'student_no' => 'required|string',
             'phone' => 'required|string',
             'ip' => 'required|ip',
             'check_in' => 'required|date',
@@ -56,7 +56,7 @@ class StudentController extends Controller
         $data = $request->validate([
             'name' => 'string',
             'email' => 'email',
-            'student_id' => 'string',
+            'student_no' => 'string',
             'phone' => 'string',
             'ip' => 'ip',
             'check_in' => 'date',
@@ -80,5 +80,22 @@ class StudentController extends Controller
     {
         Student::destroy($id);
         return response()->json(['message' => 'OK']);
+    }
+
+    /**
+     * Login
+     */
+
+    public function login(Request $request)
+    {
+        $data = $request->validate([
+            'email' => 'required',
+            'student_no' => 'required',
+        ]);
+        $student = Student::where('email', $data['email'])->where('student_no', $data['student_no'])->first();
+        if (!$student) {
+            return response()->json(['message' => 'Email或學號錯誤'], 200);
+        }
+        return response()->json(['message' => 'OK', 'student' => $student], 200);
     }
 }

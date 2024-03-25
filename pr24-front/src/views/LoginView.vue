@@ -13,9 +13,9 @@
 
   function login() {
     vr.Post('auth/login', form.value).then((res) => {
-      if (res.status === 200) {
-        localStorage.setItem('pr24temp', res.data.token);
-        router.push('/');
+      if (res.message === 'OK') {
+        localStorage.setItem('pr24temp', JSON.stringify({ token: res.token, user: res.user }));
+        router.push('/admin');
       }
     });
   }

@@ -20,6 +20,7 @@ Route::post('user/reset/{id}', [UserController::class, 'resetPassword']);
 
 // student
 Route::apiResource('student', StudentController::class);
+Route::post('student-login', [StudentController::class, 'login']);
 
 // seat
 Route::apiResource('seat', SeatController::class);

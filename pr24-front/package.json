@@ -13,11 +13,14 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@chenfengyuan/vue-qrcode": "^2.0.0",
     "axios": "^1.6.8",
     "pinia": "^2.1.7",
     "primevue": "^3.50.0",
+    "qrcode": "^1.5.3",
     "sass": "^1.72.0",
     "vue": "^3.4.21",
+    "vue-qrcode-reader": "^5.5.3",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
