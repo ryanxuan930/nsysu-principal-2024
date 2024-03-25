@@ -83,7 +83,7 @@
         </div>
       </QrcodeStream>
       <hr class="my-2" />
-      <div class="text-2xl font-semibold flex flex-col gap-3" v-if="userData.name !== undefined">
+      <div class="text-2xl font-semibold flex flex-col gap-3" v-if="seatData.area !== undefined">
         <div>姓名：{{ userData.name }}</div>
         <div>學號：{{ userData.student_no }}</div>
         <div>座位：{{ seatData.area }} 區 {{ seatData.row }} 排 {{ seatData.no }} 號</div>
