@@ -25,6 +25,11 @@ const router = createRouter({
           name: 'adminScan',
           component: () => import('../views/admin/ScanPage.vue'),
         },
+        {
+          path: 'seat',
+          name: 'adminSeat',
+          component: () => import('../views/admin/SeatPage.vue'),
+        },
       ],
     },
     {
