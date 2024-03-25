@@ -25,6 +25,7 @@ Route::post('student-login', [StudentController::class, 'login']);
 
 // seat
 Route::apiResource('seat', SeatController::class);
+Route::get('seat-order', [SeatController::class, 'getSeatByOrder']);
 
 // feedback
 Route::apiResource('feedback', FeedbackController::class);

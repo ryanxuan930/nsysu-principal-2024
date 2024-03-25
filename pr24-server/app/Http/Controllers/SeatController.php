@@ -21,6 +21,11 @@ class SeatController extends Controller
         return Seat::all();
     }
 
+    public function getSeatByOrder()
+    {
+        return Seat::orderBy('area', 'asc')->orderBy('row', 'asc')->orderBy('no', 'asc')->get();
+    }
+
     /**
      * Store a newly created resource in storage.
      */
