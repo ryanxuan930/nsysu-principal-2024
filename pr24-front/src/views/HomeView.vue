@@ -5,6 +5,7 @@
   import VueRequest from '@/vue-request';
   import InputText from 'primevue/inputtext';
   import Button from 'primevue/button';
+  import QuestionView from '@/views/QuestionView.vue';
 
   const vr = new VueRequest();
 
@@ -42,7 +43,7 @@
   const signoutStatus = ref(false);
   function getSignoutStatus() {
     const now = new Date();
-    if (now.getFullYear() === 2024 && now.getMonth() === 2 && now.getDate() === 25 && now.getHours() >= 21 && now.getHours() <= 23) {
+    if (now.getFullYear() === 2024 && now.getMonth() === 2 && now.getDate() === 25 && now.getHours() >= 14 && now.getHours() <= 23) {
       signoutStatus.value = true;
     }
   }
@@ -80,17 +81,22 @@
         </div>
       </div>
       <div v-else>
-        <div class="text-xl text-center font-semibold">請於入口處出示本條碼</div>
-        <div class="flex b-0 m-0 p-0">
-          <div class="flex-grow"></div>
-          <vue-qrcode :value="userData.payload" tag="svg" :options="{ errorCorrectionLevel: 'H', width: 350 }"></vue-qrcode>
-          <div class="flex-grow"></div>
-        </div>
-        <div class="text-2xl font-semibold text-center">
-          您的座位：
-          <span v-if="userData.student.area == '0'">掃碼通關後顯示</span>
-          <span v-else>{{ userData.student.area }} 區 {{ userData.student.row }} 排 {{ userData.student.no }} 號</span>
-        </div>
+        <template v-if="!signoutStatus">
+          <div class="text-xl text-center font-semibold">請於入口處出示本條碼</div>
+          <div class="flex b-0 m-0 p-0">
+            <div class="flex-grow"></div>
+            <vue-qrcode :value="userData.payload" tag="svg" :options="{ errorCorrectionLevel: 'H', width: 350 }"></vue-qrcode>
+            <div class="flex-grow"></div>
+          </div>
+          <div class="text-2xl font-semibold text-center">
+            您的座位：
+            <span v-if="userData.student.area == '0'">掃碼通關後顯示</span>
+            <span v-else>{{ userData.student.area }} 區 {{ userData.student.row }} 排 {{ userData.student.no }} 號</span>
+          </div>
+        </template>
+        <hr />
+        <QuestionView :userData="userData" v-if="signoutStatus" />
+        <hr />
         <Button class="block button" @click="logout" label="登出" />
       </div>
     </div>
