@@ -1,0 +1,7 @@
+{
+  "productionServer": "https://principal2024.nsysu.dev/server/api/",
+  "developmentServer": "https://principal2024.nsysu.dev/server/api/",
+  "developmentStorage": "https://principal2024.nsysu.dev/server/api/",
+  "productionStorage": "https://principal2024.nsysu.dev/server/api/",
+  "mode": "development"
+}
