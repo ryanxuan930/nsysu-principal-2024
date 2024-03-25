@@ -87,7 +87,7 @@
         </div>
         <div class="text-2xl font-semibold text-center">
           您的座位：
-          <span v-if="userData.area == '0'">將於掃碼通關後顯示</span>
+          <span v-if="userData.student.area == '0'">將於掃碼通關後顯示</span>
           <span v-else>{{ userData.student.area }} 區 {{ userData.student.row }} 排 {{ userData.student.no }} 號</span>
         </div>
         <Button class="block button" @click="logout" label="登出" />
