@@ -85,6 +85,11 @@
           <vue-qrcode :value="userData.payload" tag="svg" :options="{ errorCorrectionLevel: 'H', width: 350 }"></vue-qrcode>
           <div class="flex-grow"></div>
         </div>
+        <div class="text-2xl font-semibold text-center">
+          您的座位：
+          <span v-if="userData.area == '0'">將於掃碼通關後顯示</span>
+          <span v-else>{{ userData.area }} 區 {{ userData.row }} 排 {{ userData.no }} 號</span>
+        </div>
         <Button class="block button" @click="logout" label="登出" />
       </div>
     </div>
