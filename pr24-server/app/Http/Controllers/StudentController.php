@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class StudentController extends Controller
 {
@@ -96,6 +98,27 @@ class StudentController extends Controller
         if (!$student) {
             return response()->json(['message' => 'Email或學號錯誤'], 200);
         }
-        return response()->json(['message' => 'OK', 'student' => $student], 200);
+        $payload = [];
+        $payload['student_id'] = $student->student_id;
+        $payload['student_no'] = $student->student_no;
+        $encryptedValue = Crypt::encryptString(json_encode($payload));
+        return response()->json(['message' => 'OK', 'student' => $student, 'payload' => $encryptedValue], 200);
+    }
+
+    /**
+     * Logout
+     */
+    public function logout()
+    {
+        $data = $request->validate([
+            'email' => 'required',
+            'student_no' => 'required',
+        ]);
+        $student = Student::where('email', $data['email'])->where('student_no', $data['student_no'])->first();
+        if (!$student) {
+            return response()->json(['message' => 'Email或學號錯誤'], 200);
+        }
+        $student->update(['check_out' => now()]);
+        return response()->json(['message' => 'OK']);
     }
 }
