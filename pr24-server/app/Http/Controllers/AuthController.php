@@ -76,6 +76,6 @@ class AuthController extends Controller
             $seat->save();
         }
         $student->save();
-        return response()->json(['message' => 'OK', 'seat' => $seat, 'user' => $payload], 200);
+        return response()->json(['message' => 'OK', 'seat' => $seat, 'user' => $student], 200);
     }
 }
