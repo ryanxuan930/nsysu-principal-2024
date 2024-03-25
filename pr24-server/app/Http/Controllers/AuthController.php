@@ -25,7 +25,7 @@ class AuthController extends Controller
             return response()->json(['message' => '帳號或密碼錯誤'], 200);
         }
 
-        $user = Admin::find(auth()->user()->user_id);
+        $user = User::find(auth()->user()->user_id);
         //force to update user model cache 
         auth()->setUser($user);
         // Return the token along with the user info
