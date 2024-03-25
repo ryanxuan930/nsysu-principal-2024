@@ -26,8 +26,8 @@
     form.value.student_no = form.value.student_no.toUpperCase();
     vr.Post('student-login', form.value).then((res) => {
       if (res.message === 'OK') {
-        userData.value = res.student;
-        localStorage.setItem('pr24student', JSON.stringify(res.student));
+        userData.value = res;
+        localStorage.setItem('pr24student', JSON.stringify(res));
       } else {
         alert(res.message);
       }
@@ -55,7 +55,7 @@
         </div>
       </div>
       <div v-else>
-        <div class="text-xl text-center font-semibold">請於入口處出示本條碼與學生證/在學證明</div>
+        <div class="text-xl text-center font-semibold">請於入口處出示本條碼</div>
         <div class="flex b-0 m-0 p-0">
           <div class="flex-grow"></div>
           <vue-qrcode :value="userData.payload" tag="svg" :options="{ errorCorrectionLevel: 'H', width: 350 }"></vue-qrcode>
