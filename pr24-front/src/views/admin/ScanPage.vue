@@ -70,7 +70,7 @@
 </script>
 
 <template>
-  <div class="w-full sm:m-auto sm:w-96 p-5 flex flex-col gap-5">
+  <div class="w-full sm:m-auto sm:w-1/3 p-5 flex flex-col gap-5">
     <router-link to="/admin">回上頁</router-link>
     <hr />
     <div class="text-2xl">掃描QR Code</div>
