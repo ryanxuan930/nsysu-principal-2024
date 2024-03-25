@@ -29,7 +29,7 @@ class AuthController extends Controller
         //force to update user model cache 
         auth()->setUser($user);
         // Return the token along with the user info
-        return response()->json(['message' => 'OK', 'user' => auth()->user(), 'token' => $token], 200);
+        return response()->json(['message' => 'OK', 'user' => auth()->user(), 'token' => auth()->attempt($credentials)], 200);
     }
 
     public function logout()
