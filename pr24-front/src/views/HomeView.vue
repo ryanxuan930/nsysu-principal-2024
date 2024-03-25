@@ -43,7 +43,7 @@
   const signoutStatus = ref(false);
   function getSignoutStatus() {
     const now = new Date();
-    if (now.getFullYear() === 2024 && now.getMonth() === 2 && now.getDate() === 25 && now.getHours() >= 14 && now.getHours() <= 23) {
+    if (now.getFullYear() === 2024 && now.getMonth() === 2 && now.getDate() === 25 && now.getHours() >= 21 && now.getHours() <= 23) {
       signoutStatus.value = true;
     }
   }
@@ -95,7 +95,7 @@
           </div>
         </template>
         <hr />
-        <QuestionView :userData="userData" v-if="signoutStatus" />
+        <QuestionView :userData="userData" v-if="signoutStatus" @logout="logout" />
         <hr />
         <Button class="block button" @click="logout" label="登出" />
         <div class="p-5"></div>
