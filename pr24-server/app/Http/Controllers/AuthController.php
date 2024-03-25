@@ -19,17 +19,17 @@ class AuthController extends Controller
             'account' => 'required|string',
             'password' => 'required|string',
         ]);
-        $token = auth('user')->attempt($credentials);
+        $token = auth()->attempt($credentials);
         if(!$token)
         {
             return response()->json(['message' => '帳號或密碼錯誤'], 200);
         }
 
-        $user = User::find(auth('user')->user()->user_id);
+        $user = User::find(auth()->user()->user_id);
         //force to update user model cache 
         auth()->setUser($user);
         // Return the token along with the user info
-        return response()->json(['message' => 'OK', 'user' => auth('user')->user(), 'token' => $token], 200);
+        return response()->json(['message' => 'OK', 'user' => auth()->user(), 'token' => $token], 200);
     }
 
     public function logout()
